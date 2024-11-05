@@ -1,0 +1,13 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: rsapp-scaler
+spec:
+  scaleTargetRef: ## xác định replicaset nào chịu tác động caler này
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: rsapp ## tên replicaset chịu tác động
+  minReplicas: 4 ## tối thiểu
+  maxReplicas: 7 ## tối đa
+  # Thực hiện scale CPU hoạt động ở 50% so với CPU mà POD yêu cầu
+  targetCPUUtilizationPercentage: 50

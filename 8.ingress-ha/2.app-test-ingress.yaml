@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  namespace: ingress-controller
+  annotations:
+    haproxy.org/path-rewrite: "/"
+spec:
+  rules:
+    - host: viettu.test
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: http-test-svc
+                port:
+                  number: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    haproxy.org/path-rewrite: "/"
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: "viettu.test"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: http-test-svc
+                port:
+                  number: 80

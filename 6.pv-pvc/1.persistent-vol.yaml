@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv1
+  labels:
+    name: pv1
+spec:
+  storageClassName: mystorageclass
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce # chỉ dụng bởi một node
+  hostPath:
+    path: "/v1" #/ sử dụng thư  mục trên  node làm ổ đĩa, tham số hostPatch chỉ sử dụng khi ta tạo các ổ đĩa mà nó sử dụng các thư mục của các node, còn lại tùy thuộc lưu trữ file sử dụng

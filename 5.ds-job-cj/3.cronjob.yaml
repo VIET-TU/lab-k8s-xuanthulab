@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mycronjob
+spec:
+  # Một phút chạy một Job (mỗi phút chạy 1 lần)
+  schedule: "*/1 * * * *"
+  # Số Job lưu lại
+  successfulJobsHistoryLimit: 3 # Mục đính lưu lại là để xem lại cái log, lịch sử của job hoạt dộng
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: busybox
+              image: busybox
+              args:
+                - /bin/sh
+                - -c
+                - date; echo "Job in CronJob"
+          restartPolicy: Never

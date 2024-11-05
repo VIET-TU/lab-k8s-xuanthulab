@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tools
+  labels:
+    app: tools
+spec:
+  containers:
+    - name: tools
+      image: ichte/coretools
+      resources: {}
+      command: ["/bin/bash"]
+      args: ["-c", "while true; do echo 'coretools running'; sleep 10;done"]
+## khi container trên được khởi tạo thì nó chạy ngay lện bin/bash
+##command khi được tạo ra nó chạy ngay lện /bin/bash
+## Chú ý: tuy nhiên khi chạy lệnh bash nó không attach vào một terminal nào thì nó thoát ngay lập tức -> container kết thúc -> pod bị crash
+## Dó đó để cotainer chạy mà không kết thúc ta cho nó vào vòng lặp
+
+## đảm bảo cho lệnh bin/bash không kết thúc mặc dù không kết nối terminal
+
